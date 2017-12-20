@@ -612,7 +612,7 @@ public class clsJuego  {
     }
     class capafondo extends Layer {
         public capafondo() {
-            Imagenfondo = Sprite.sprite("fondoj.jpg");
+            Imagenfondo = Sprite.sprite("background.jpg");
 
             Imagenfondo.setPosition(AnchoPantalla / 2, AltoPantalla / 2);
 
