@@ -1,4 +1,4 @@
-package com.tp8.eze.juego;
+package com.tp8prog.Patricio.tpjuego;
 
 import android.app.Activity;
 import android.os.Bundle;
