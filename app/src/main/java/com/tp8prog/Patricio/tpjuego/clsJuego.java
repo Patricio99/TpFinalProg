@@ -1,4 +1,4 @@
-package com.tp8.eze.juego;
+package com.tp8prog.Patricio.tpjuego;
 
 import android.content.Context;
 import android.util.Log;
@@ -32,7 +32,6 @@ public class clsJuego  {
     float posicioninicialtocoX, posicioninicialtocoY;
     float posicionfinaltocoX, posicionfinaltocoY;
     boolean estoyRecorriendoMeteoritos;
-    boolean estoyRecorriendoMonedas;
     int puntaje = 0;
     Label lblpuntaje, lblsegundos;
     int segundos  = 0;
@@ -535,7 +534,6 @@ public class clsJuego  {
             Log.d ("detectarchoque", "voy a verificar los " + arrMeteorit.size() +" meteoritos");
             boolean hubochoque;
             hubochoque = false;
-            Sprite aEliminar = Sprite.sprite("Moneda.png");
 
             if (!estoyRecorriendoMeteoritos) {
                 estoyRecorriendoMeteoritos=true;
@@ -544,7 +542,6 @@ public class clsJuego  {
                     if (InterseccionEntreSprites(CoheteUsuario, arrayList.get(i))) {
                         if(Objeto.equals("Monedas")){
                             ponerlblpuntaje(100);
-                            aEliminar = arrayList.get(i);
                             super.removeChild(arrayList.get(i),true);
                         }else{
                             hubochoque = true;
@@ -558,7 +555,6 @@ public class clsJuego  {
                         }
                     }
                 }
-                arrayList.remove(aEliminar);
             }
             estoyRecorriendoMeteoritos=false;
             if (hubochoque ==true)
