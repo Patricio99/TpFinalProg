@@ -32,12 +32,12 @@ public class clsJuego  {
     float getFinalTouchX, getFinalTouchY;
     float Carril1, Carril2, Carril3;
     int PlanetaCont = 0;
-    int RocaCont = 0;
+    int RocasCont = 0;
     int Roca1Cont = 0;
     int Puntuacion = 0;
     int segundos = 0;
     ArrayList<Sprite> arrayPlaneta;
-    ArrayList<Sprite> arrayRoca;
+    ArrayList<Sprite> arrayRocas;
     ArrayList<Sprite> arrayRoca1;
     Label lblPerdiste;
     Label lblpuntaje, lblsegundos;
@@ -96,7 +96,7 @@ public class clsJuego  {
             ponerAstronauta();
             this.setIsTouchEnabled(true);
             arrayPlaneta = new ArrayList<Sprite>();
-            arrayRoca = new ArrayList<Sprite>();
+            arrayRocas = new ArrayList<Sprite>();
             arrayRoca1 = new ArrayList<Sprite>();
             miMusica = MediaPlayer.create(_Contexto, R.raw.music);
             miMusica.start();
@@ -117,7 +117,7 @@ public class clsJuego  {
                 @Override
                 public void run() {
                     VerifyArray(arrayPlaneta, PlanetaHeight);
-                    VerifyArray(arrayRoca,RocaHeight);
+                    VerifyArray(arrayRocas,RocaHeight);
                     VerifyArray(arrayRoca1,RocaHeight);
 
                 }
@@ -140,37 +140,23 @@ public class clsJuego  {
             taskPonerRoca = new TimerTask() {
                 @Override
                 public void run() {
-                    nuevaRoca();
-                    RocaCont++;
+                    nuevasRocas();
+                    RocasCont++;
 
-                    Log.d("Rocas", " tengo " + RocaCont + " rocas");
+                    Log.d("Rocas", " tengo " + RocasCont + " rocas");
                 }
             };
 
-            TimerTask taskPonerRoca1;
 
-            taskPonerRoca1 = new TimerTask() {
-                @Override
-                public void run() {
-                    nuevaRoca1();
-                    Roca1Cont++;
-
-                    Log.d("Rocas", " tengo " + Roca1Cont + " rocas");
-                }
-            };
-
-            if (PlanetaCont <= 10 && RocaCont <= 10 && Roca1Cont <= 10) {
+            if (PlanetaCont <= 10 && RocasCont <= 10 && Roca1Cont <= 10) {
                 timPonerPlaneta.schedule(taskNuevoPlaneta, 0, 1500);
                 timPonerPlaneta.schedule(taskPonerRoca, 0 , 2000);
-                timPonerPlaneta.schedule(taskPonerRoca1, 0 , 2000);
-            } else if (PlanetaCont >= 10 && PlanetaCont <= 30 && RocaCont >= 10 && RocaCont <= 30 && Roca1Cont >= 10 && Roca1Cont <= 30) {
+            } else if (PlanetaCont >= 10 && PlanetaCont <= 30 && RocasCont >= 10 && RocasCont <= 30 && Roca1Cont >= 10 && Roca1Cont <= 30) {
                 timPonerPlaneta.schedule(taskNuevoPlaneta, 0, 900);
                 timPonerPlaneta.schedule(taskPonerRoca, 0, 2000);
-                timPonerPlaneta.schedule(taskPonerRoca1, 0 , 2000);
             } else {
                 timPonerPlaneta.schedule(taskNuevoPlaneta, 0, 700);
                 timPonerPlaneta.schedule(taskPonerRoca, 0, 2000);
-                timPonerPlaneta.schedule(taskPonerRoca1, 0 , 2000);
             }
 
             TimerTask verificarImpactos;
@@ -179,7 +165,7 @@ public class clsJuego  {
                 public void run() {
 
                     detectarChoque(arrayPlaneta,"Planetas");
-                    detectarChoque(arrayRoca,"Rocas");
+                    detectarChoque(arrayRocas,"Rocas");
                     detectarChoque(arrayRoca1,"Rocas");
 
                 }
@@ -208,15 +194,13 @@ public class clsJuego  {
                 super.removeChild(Astronauta, true);
                 super.removeChild(lblPerdiste, true);
                 arrayPlaneta.clear();
-                arrayRoca.clear();
+                arrayRocas.clear();
                 super.removeChild(lblpuntaje, true);
                 super.removeChild(Planeta, true);
                 super.removeChild(Roca, true);
-                super.removeChild(Roca1, true);
 
                 PlanetaCont = 0;
-                RocaCont = 0;
-                Roca1Cont = 0;
+                RocasCont = 0;
                 Puntuacion = 0;
                 segundos = 0;
 
@@ -231,8 +215,7 @@ public class clsJuego  {
                 ponerAstronauta();
                 this.setIsTouchEnabled(true);
                 arrayPlaneta = new ArrayList<Sprite>();
-                arrayRoca = new ArrayList<Sprite>();
-                arrayRoca1 = new ArrayList<Sprite>();
+                arrayRocas = new ArrayList<Sprite>();
                 TimerTask tareasumarsegundo = new TimerTask() {
                     @Override
                     public void run() {
@@ -248,8 +231,7 @@ public class clsJuego  {
                     @Override
                     public void run() {
                         VerifyArray(arrayPlaneta, PlanetaHeight);
-                        VerifyArray(arrayRoca, RocaHeight);
-                        VerifyArray(arrayRoca1, RocaHeight);
+                        VerifyArray(arrayRocas, RocaHeight);
                     }
                 };
 
@@ -267,44 +249,29 @@ public class clsJuego  {
                     }
                 };
 
-                TimerTask taskNuevaRoca;
+                TimerTask taskNuevasRocas;
 
-                taskNuevaRoca = new TimerTask() {
+                taskNuevasRocas = new TimerTask() {
                     @Override
                     public void run() {
-                        nuevaRoca();
-                        RocaCont++;
+                        nuevasRocas();
+                        RocasCont += 2;
 
-                        Log.d("Roca2", " tengo " + RocaCont + " rocas");
+                        Log.d("Roca2", " tengo " + RocasCont + " rocas");
 
                     }
                 };
 
-                TimerTask taskNuevaRoca1;
 
-                taskNuevaRoca1 = new TimerTask() {
-                    @Override
-                    public void run() {
-                        nuevaRoca1();
-                        Roca1Cont++;
-
-                        Log.d("Roca2", " tengo " + Roca1Cont + " rocas");
-
-                    }
-                };
-
-                if (PlanetaCont <= 10 && RocaCont <= 10 && Roca1Cont <= 10) {
+                if (PlanetaCont <= 10 && RocasCont <= 10 && Roca1Cont <= 10) {
                     timPonerPlaneta.schedule(taskPonerPlaneta, 0, 2500);
-                    timPonerPlaneta.schedule(taskNuevaRoca, 0, 1500);
-                    timPonerPlaneta.schedule(taskNuevaRoca1, 0, 1500);
-                } else if (PlanetaCont >= 10 && PlanetaCont <= 30  && RocaCont >= 10 && RocaCont <= 30) {
+                    timPonerPlaneta.schedule(taskNuevasRocas, 0, 1500);
+                } else if (PlanetaCont >= 10 && PlanetaCont <= 30  && RocasCont >= 10 && RocasCont <= 30) {
                     timPonerPlaneta.schedule(taskPonerPlaneta, 0, 2000);
-                    timPonerPlaneta.schedule(taskNuevaRoca, 0, 1000);
-                    timPonerPlaneta.schedule(taskNuevaRoca1, 0, 1000);
+                    timPonerPlaneta.schedule(taskNuevasRocas, 0, 1000);
                 } else {
                     timPonerPlaneta.schedule(taskPonerPlaneta, 0, 1500);
-                    timPonerPlaneta.schedule(taskNuevaRoca, 0, 650);
-                    timPonerPlaneta.schedule(taskNuevaRoca1, 0, 650);
+                    timPonerPlaneta.schedule(taskNuevasRocas, 0, 650);
                 }
 
                 TimerTask verificarImpactos;
@@ -313,7 +280,7 @@ public class clsJuego  {
                     public void run() {
 
                         detectarChoque(arrayPlaneta,"Planetas");
-                        detectarChoque(arrayRoca,"Rocas");
+                        detectarChoque(arrayRocas,"Rocas");
                         detectarChoque(arrayRoca1,"Rocas");
                     }
                 };
@@ -359,7 +326,6 @@ public class clsJuego  {
             super.addChild(lblPerdiste);
         }
         private void ponerlblpuntaje(int PuntajeASumar){
-            super.removeChild(lblpuntaje, true);
             super.removeChild(lblpuntaje, true);
             Puntuacion = Puntuacion + PuntajeASumar;
             lblpuntaje = Label.label("Puntuación: " + Puntuacion, "Verdana", 60);
@@ -418,19 +384,30 @@ public class clsJuego  {
 
         }
 
-        void nuevaRoca(){
+        void nuevasRocas(){
 
             Roca = Sprite.sprite("Roca.png");
+            Roca1 = Sprite.sprite("Roca1.png");
+
             Roca.runAction(ScaleTo.action(0.02f));
-            int posInicialX, posInicialY;
+            Roca1.runAction(ScaleTo.action(0.02f));
+
+            int posInicialX1, posInicialY1, posInicialX, posInicialY;
 
             float RocaHeight = Roca.getHeight();
+            float Roca1Height = Roca1.getHeight();
             posInicialY = (int) (DeviceDisplay.getHeight() + RocaHeight/2);
+            posInicialY1 = (int) (DeviceDisplay.getHeight() + Roca1Height/2);
 
             Random  azar;
             azar = new Random();
             int auxiliar;
             auxiliar = azar.nextInt(3);
+
+            Random  azar1;
+            azar1 = new Random();
+            int auxiliar1;
+            auxiliar1 = azar1.nextInt(3);
 
             if (auxiliar == 0)
             {
@@ -443,71 +420,43 @@ public class clsJuego  {
                 posInicialX = (int) (DeviceDisplay.width/2 +180);
             }
 
+            if (auxiliar1 == 0)
+            {
+                posInicialX1 = (int) (DeviceDisplay.width/2 - 190);
+            }else if (auxiliar1 ==1)
+            {
+                posInicialX1 = (int) (DeviceDisplay.width/2 - 10);
+            }
+            else{
+                posInicialX1 = (int) (DeviceDisplay.width/2 +180);
+            }
+
             Roca.setPosition(posInicialX, posInicialY);
-            int posFinalX, posFinalY;
+            Roca1.setPosition(posInicialX1, posInicialY1);
+
+            int posFinalX, posFinalY, posFinalX1, posFinalY1;
             posFinalX = posInicialX;
+            posFinalX1 = posInicialX1;
             posFinalY = (int) - RocaHeight/2;
+            posFinalY1 = (int) - Roca1Height/2;
             if (PlanetaCont <20){
                 Roca.runAction(MoveTo.action(5, posFinalX, posFinalY));
+                Roca1.runAction(MoveTo.action(5, posFinalX1, posFinalY1));
             }
             else if (PlanetaCont >=20 && PlanetaCont <= 40)
             {
                 Roca.runAction(MoveTo.action(4, posFinalX, posFinalY));
+                Roca1.runAction(MoveTo.action(4, posFinalX1, posFinalY1));
             }
             else
             {
                 Roca.runAction(MoveTo.action(3, posFinalX, posFinalY));
+                Roca1.runAction(MoveTo.action(3, posFinalX1, posFinalY1));
             }
-            arrayRoca.add(Roca);
-            Log.d("PongoRoca","Hay "+arrayRoca.size()+ " Rocas" );
+            arrayRocas.add(Roca);
+            arrayRocas.add(Roca1);
+            Log.d("PongoRocas","Hay "+ arrayRocas.size()+ " Rocas" );
             super.addChild(Roca);
-
-        }
-
-        void nuevaRoca1(){
-
-            Roca1 = Sprite.sprite("Roca1.png");
-            Roca1.runAction(ScaleTo.action(0.02f));
-            int posInicialX, posInicialY;
-
-            float RocaHeight = Roca1.getHeight();
-            posInicialY = (int) (DeviceDisplay.getHeight() + RocaHeight/2);
-
-            Random  azar;
-            azar = new Random();
-            int auxiliar;
-            auxiliar = azar.nextInt(3);
-
-            if (auxiliar == 0)
-            {
-                posInicialX = (int) (DeviceDisplay.width/2 - 190);
-
-            }else if (auxiliar ==1)
-            {
-                posInicialX = (int) (DeviceDisplay.width/2 - 10);
-
-            }
-            else{
-                posInicialX = (int) (DeviceDisplay.width/2 +180);
-            }
-
-            Roca1.setPosition(posInicialX, posInicialY);
-            int posFinalX, posFinalY;
-            posFinalX = posInicialX;
-            posFinalY = (int) - RocaHeight/2;
-            if (PlanetaCont <20){
-                Roca1.runAction(MoveTo.action(5, posFinalX, posFinalY));
-            }
-            else if (PlanetaCont >=20 && PlanetaCont <= 40)
-            {
-                Roca1.runAction(MoveTo.action(4, posFinalX, posFinalY));
-            }
-            else
-            {
-                Roca1.runAction(MoveTo.action(3, posFinalX, posFinalY));
-            }
-            arrayRoca1.add(Roca1);
-            Log.d("PongoRoca1","Hay "+arrayRoca1.size()+ " Rocas1" );
             super.addChild(Roca1);
 
         }
