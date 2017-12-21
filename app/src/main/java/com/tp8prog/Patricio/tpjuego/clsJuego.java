@@ -107,7 +107,7 @@ public class clsJuego  {
                 public void run() {
 
                     segundos++;
-                    ponerlblpuntaje(segundos);
+                    ponerlblpuntaje(10);
                 }
             };
 
@@ -118,6 +118,7 @@ public class clsJuego  {
                 public void run() {
                     VerifyArray(arrayPlaneta, PlanetaHeight);
                     VerifyArray(arrayRoca,RocaHeight);
+                    VerifyArray(arrayRoca1,RocaHeight);
 
                 }
             };
@@ -219,7 +220,6 @@ public class clsJuego  {
                 Puntuacion = 0;
                 segundos = 0;
 
-                super.removeChild(lblPerdiste, true);
 
                 playing = true;
 
@@ -238,7 +238,7 @@ public class clsJuego  {
                     public void run() {
 
                         segundos++;
-                        ponerlblpuntaje(segundos);
+                        ponerlblpuntaje(10);
                     }
                 };
 
@@ -329,22 +329,22 @@ public class clsJuego  {
             if (Astronauta.getPositionX() == Carril1)
             {
                 if (getFinalTouchX > getInitialTouchX){
-                    Astronauta.runAction(MoveTo.action(0.1f, Carril2,100));
+                    Astronauta.runAction(MoveTo.action(0.2f, Carril2,100));
                 }
             }
             if (Astronauta.getPositionX() == Carril2)
             {
                 if (getFinalTouchX > getInitialTouchX){
-                    Astronauta.runAction(MoveTo.action(0.1f, Carril3,100));
+                    Astronauta.runAction(MoveTo.action(0.2f, Carril3,100));
                 }
                 if (getFinalTouchX < getInitialTouchX){
-                    Astronauta.runAction(MoveTo.action(0.1f, Carril1,100));
+                    Astronauta.runAction(MoveTo.action(0.2f, Carril1,100));
                 }
             }
             if (Astronauta.getPositionX() == Carril3)
             {
                 if (getFinalTouchX < getInitialTouchX){
-                    Astronauta.runAction(MoveTo.action(0.1f, Carril2,100));
+                    Astronauta.runAction(MoveTo.action(0.2f, Carril2,100));
                 }
             }
             return true;
@@ -352,7 +352,7 @@ public class clsJuego  {
 
         private void lblPerdiste() {
             lblPerdiste = Label.label("Perdiste!" + " Toque para reiniciar", "Verdana", 45);
-            CCColor3B color = new CCColor3B(100,5000, 0);
+            CCColor3B color = new CCColor3B(255, 0, 0);
             lblPerdiste.setColor(color);
             lblPerdiste.setPosition(DeviceDisplay.width/2, DeviceDisplay.height /2);
 
@@ -360,9 +360,10 @@ public class clsJuego  {
         }
         private void ponerlblpuntaje(int PuntajeASumar){
             super.removeChild(lblpuntaje, true);
+            super.removeChild(lblpuntaje, true);
             Puntuacion = Puntuacion + PuntajeASumar;
             lblpuntaje = Label.label("Puntuación: " + Puntuacion, "Verdana", 60);
-            CCColor3B color = new CCColor3B(100,5000, 0);
+            CCColor3B color = new CCColor3B(255, 0, 0);
             lblpuntaje.setColor(color);
             Float puntajePos;
             puntajePos= lblpuntaje.getHeight();
@@ -412,7 +413,7 @@ public class clsJuego  {
                 Planeta.runAction(MoveTo.action(3, posFinalX, posFinalY));
             }
             arrayPlaneta.add(Planeta);
-            Log.d("nuevoPlaneta","Hay "+ arrayPlaneta.size()+ "meteoritos");
+            Log.d("nuevoPlaneta","Hay "+ arrayPlaneta.size()+ " planetas");
             super.addChild(Planeta);
 
         }
@@ -434,11 +435,9 @@ public class clsJuego  {
             if (auxiliar == 0)
             {
                 posInicialX = (int) (DeviceDisplay.width/2 - 190);
-
             }else if (auxiliar ==1)
             {
                 posInicialX = (int) (DeviceDisplay.width/2 - 10);
-
             }
             else{
                 posInicialX = (int) (DeviceDisplay.width/2 +180);
@@ -604,18 +603,17 @@ public class clsJuego  {
                 for (int i = 0; i < arrayList.size(); i++) {
 
                     if (InterseccionEntreSprites(Astronauta, arrayList.get(i))) {
-                        if(Objeto.equals("Planetas")){
-                            ponerlblpuntaje(100);
-                            super.removeChild(arrayList.get(i),true);
-                        }else{
+                        if(Objeto.equals("Rocas")){
                             Choque = true;
                             playing = false;
                             lblPerdiste();
-                            super.removeChild(lblpuntaje, true);
                             Relojsegundos.cancel();
                             timLimpiarPlanetas.cancel();
                             timPonerPlaneta.cancel();
                             timCheckImpact.cancel();
+                        }else{
+                            ponerlblpuntaje(10);
+                            super.removeChild(arrayList.get(i),true);
                         }
                     }
                 }

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/splash_image"
+    android:orientation="vertical"
+    >
+
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="200dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="69dp"
+        android:text="Bienvenido!"
+        android:textAlignment="center"
+        android:textColor="#ff5421"
+        android:textSize="45dp" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:text="El mejor juego nunca antes visto"
+        android:textAlignment="center"
+        android:textColor="#ffff26"
+        android:textSize="25dp" />
+
+</LinearLayout>
